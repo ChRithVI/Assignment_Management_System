@@ -1,6 +1,6 @@
 const { hash } = require("bcrypt");
 
-const express = require(id: 'express')
+const express = require(id: 'express');
 
 const users = express.Router();
 
@@ -78,3 +78,24 @@ users.post('/login', (req,res) => {
             res.send("error" + err);
         })
 })
+
+
+users.get('/profile', (req,rs) =>{
+    var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
+
+    User.findOne({
+        _id: decoded._id
+    })
+        .then( resolve: user => {
+            if(user){
+                res.json(user)
+            } else{
+                res.send("user does not exist");
+            }
+        })
+        .catch( onrejected: err => {
+            res.send("Error" + err);
+        })
+} )
+
+module.exports = users;
